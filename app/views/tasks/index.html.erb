@@ -1,0 +1,133 @@
+<!--<h1>Tasks</h1>-->
+
+<%#= link_to 'New Task', new_task_path %>
+
+<!--<ul>-->
+  <%# @tasks.each do |task| %>
+<!--    <li>-->
+<%#= link_to task.title, task %>
+<!--      (Priority Score: <%#= task.priority_score %>)
+    </li>
+  <%# end %>-->
+<!--</ul>-->
+
+<!--<center>
+  <h1>Tasks</h1>
+</center>
+<%#= link_to 'New Task', new_task_path, class: 'btn btn-primary mb-3' %>-->
+<!--<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Importance</th>
+      <th>Priority Score</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%# @tasks.each do |task| %>-->
+<!--      <tr>
+        <td><%#= link_to task.title, task %></td>
+        <td><%#= task.description %></td>
+        <td><%#= task.due_date %></td>
+        <td><%#= task.importance %></td>
+        <td><%#= task.priority_score %></td>
+        <td>
+          <%##= link_to 'Show', task, class: 'btn btn-info btn-sm' %>-->
+          <%#= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning btn-sm' %>
+          <%#= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+<!--        </td>
+      </tr>
+    <%# end %>-->
+<!--  </tbody>
+</table>
+-->
+<% if notice.present? %>
+  <div id="notice" class="alert <%= notice == 'Task status updated successfully.' || notice == 'Task was successfully updated.' || notice == 'Task was successfully created.' || notice == "Signed in successfully." ? 'alert-success' : 'alert-danger' %> text-center" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert.present? %>
+  <div id="alert" class="alert <%= alert == 'danger' ? 'alert-danger' : 'alert-info' %> text-center" role="alert">
+    <%= alert %>
+  </div>
+<% end %>
+
+
+
+<center>
+  <h1>Tasks</h1>
+</center>
+<%= link_to 'New Task', new_task_path, class: 'btn btn-primary mb-3 ', style: " margin-left: 19px;" %>
+
+<% if @tasks.empty? %>
+  <div class="alert alert-warning" role="alert">
+    No tasks available click on New task to create new task !!!
+  </div>
+<% else %>
+<table class="table table-striped dark">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Importance</th>
+      <th>Priority Score</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%=  task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.due_date %></td>
+        <td><%= task.importance %></td>
+        <!--<td><%#= task.priority_score %></td>-->
+        <td><%= number_with_precision(task.priority_score, precision: 2) %></td>
+
+        <!--<td><h1><%# task.status %></h1></td>-->
+
+
+<td>
+  <% if task.status == false %>
+    <%= button_to status_update_task_path(task), method: :patch, remote: true, class: 'btn btn-warning btn-sm', style: 'width: 80px;',data: { confirm: 'Mark as Done?' }, params: { status: 1 } do %>
+      Pending
+    <% end %>
+  <% else %>
+    <%= button_to status_update_task_path(task), method: :patch, remote: true, class: 'btn btn-success btn-sm',style: 'width: 80px;', data: { confirm: 'Mark as Pending?' }, params: { status: 0 } do %>
+      Done
+    <% end %>
+  <% end %>
+</td>
+
+        <td>
+          <%= link_to edit_task_path(task), class: 'btn btn-sm' do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3.99997H6C4.89543 3.99997 4 4.8954 4 5.99997V18C4 19.1045 4.89543 20 6 20H18C19.1046 20 20 19.1045 20 18V12M18.4142 8.41417L19.5 7.32842C20.281 6.54737 20.281 5.28104 19.5 4.5C18.7189 3.71895 17.4526 3.71895 16.6715 4.50001L15.5858 5.58575M18.4142 8.41417L12.3779 14.4505C12.0987 14.7297 11.7431 14.9201 11.356 14.9975L8.41422 15.5858L9.00257 12.6441C9.08001 12.2569 9.27032 11.9013 9.54951 11.6221L15.5858 5.58575M18.4142 8.41417L15.5858 5.58575" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          <% end %>
+          <%= link_to task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm' do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M6 19C6 20.1046 6.89543 21 8 21H16C17.1046 21 18 20.1046 18 19V7H6V19Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 11V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 11V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 7H19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10 7V5C10 4.44772 10.4477 4 11 4H13C13.5523 4 14 4.44772 14 5V7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%# content_for :javascripts do %>
+  <%#= javascript_include_tag 'tasks_index' %>
+<%# end %>
+

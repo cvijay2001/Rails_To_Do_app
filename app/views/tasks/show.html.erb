@@ -1,0 +1,45 @@
+<!--<h1><%#= @task.title %></h1>
+
+<p><strong>Description:</strong> <%#= @task.description %></p>
+<p><strong>Due Date:</strong> <%#= @task.due_date %></p>
+<p><strong>Importance:</strong> <%#= @task.importance %></p>
+
+<%#= link_to 'Back', tasks_path %>-->
+<!---->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h3>Task Details</h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title"><%= @task.title %></h4>
+
+          <dl class="row">
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9"><%= @task.description %></dd>
+
+            <dt class="col-sm-3">Due Date</dt>
+            <dd class="col-sm-9"><%= @task.due_date %></dd>
+
+            <dt class="col-sm-3">Importance</dt>
+            <dd class="col-sm-9"><%= @task.importance %></dd>
+
+            <dt class="col-sm-3">Priority Score</dt>
+            <dd class="col-sm-9"><%= @task.priority_score %></dd>
+          </dl>
+
+          <div class="mt-4">
+            <%= link_to 'Edit', edit_task_path(@task), class: 'btn btn-warning' %>
+            <%#= link_to 'Delete', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+             <%= button_to 'Delete', @task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            
+            <%= link_to 'Back', tasks_path, class: 'btn btn-secondary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

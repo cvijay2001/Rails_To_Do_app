@@ -1,0 +1,28 @@
+.navbar {
+  background-color: #17a2b8; /* Adjusted color for a better look */
+}
+.navbar-brand {
+  font-weight: bold;
+  color: #fff;
+}
+.navbar-nav .nav-link {
+  color: #fff;
+}
+.navbar-nav .nav-link:hover {
+  color: #ffeb3b; /* Hover color for links */
+}
+.btn-sign-out {
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-sign-out:hover { 
+  color: #ffeb3b; /* Hover color for button */
+}
+
+/* app/assets/stylesheets/nav.css */
+.navbar-nav {
+  margin-left: auto;
+}
+

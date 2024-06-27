@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error:</strong> <%= flash[:alert] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h2 class="mb-0">Log in</h2>
+        </div>
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'needs-validation', novalidate: true }) do |f| %>
+            <div class="form-group">
+              <%= f.label :email, class: 'form-label' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control #{resource.errors[:email].any? ? 'is-invalid' : ''}", required: true %>
+              <% if resource.errors[:email].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:email].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="form-group mt-3">
+              <%= f.label :password, class: 'form-label' %>
+              <%= f.password_field :password, autocomplete: "current-password", class: "form-control #{resource.errors[:password].any? ? 'is-invalid' : ''}", required: true %>
+              <% if resource.errors[:password].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:password].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+              <div class="form-check mt-3">
+                <%= f.check_box :remember_me, class: 'form-check-input' %>
+                <%= f.label :remember_me, class: 'form-check-label' %>
+              </div>
+            <% end %>
+
+            <div class="form-group mt-4">
+              <%= f.submit "Log in", class: 'btn btn-success btn-block w-100', style: 'font-weight: bold;' %>
+            </div>
+          <% end %>
+
+          <div class="d-flex justify-content-between mt-3">
+            <%#= render "devise/shared/links" %>
+            <div>
+              <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                <%= link_to "New User? Sign up", new_registration_path(resource_name), class: "text-primary" %>
+              <% end %>
+            </div>
+            <div>
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                <%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-primary" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<!--<h2>Sign up</h2>-->
+
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%#= render "devise/shared/error_messages", resource: resource %>
+<!--
+  <div class="field">
+    <%#= f.label :email %><br />-->
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<!--  </div>
+
+  <div class="field">
+    <%#= f.label :password %>-->
+    <%# if @minimum_password_length %>
+<!--    <em>(<%#= @minimum_password_length %> characters minimum)</em>-->
+    <%# end %>
+    <%#= f.password_field :password, autocomplete: "new-password" %>
+<!--  </div>
+
+  <div class="field">
+    <%#= f.label :password_confirmation %><br />-->
+    <%#= f.password_field :password_confirmation, autocomplete: "new-password" %>
+<!--  </div>
+
+  <div class="actions">
+    <%#= f.submit "Sign up" %>-->
+<!--  </div>-->
+<%# end %>
+<!---->
+<%#= render "devise/shared/links" %>
+<!---->
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if resource.errors.any? %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <% if resource.errors[:email].include?("has already been taken") %>
+            <strong>Error:</strong> Email has already been taken.
+          <% else %>
+            <strong>Error:</strong> Please correct the following:
+            <ul>
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4 text-primary">Sign up</h2>
+          
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'needs-validation', novalidate: true }) do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: 'form-label' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control #{resource.errors[:email].any? ? 'is-invalid' : ''}", required: true %>
+              <% if resource.errors[:email].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:email].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="mb-3">
+              <%= f.label :password, class: 'form-label' %>
+              <% if @minimum_password_length %>
+                <small class="text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control #{resource.errors[:password].any? ? 'is-invalid' : ''}", required: true %>
+              <% if resource.errors[:password].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:password].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="mb-3">
+              <%= f.label :password_confirmation, class: 'form-label' %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control #{resource.errors[:password_confirmation].any? ? 'is-invalid' : ''}", required: true %>
+              <% if resource.errors[:password_confirmation].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:password_confirmation].join(", ") %>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <%= f.submit "Sign up", class: 'btn btn-primary btn-lg' %>
+            </div>
+          <% end %>
+          
+          <div class="mt-3 text-center">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
